@@ -1,9 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  return <AppContext.Provider value="hi">{children}</AppContext.Provider>;
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openSidebar = () => {
+    setIsSidebarOpen(true);
+  };
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <AppContext.Provider
+      value={{
+        isSidebarOpen,
+        isModalOpen,
+        openModal,
+        closeModal,
+        openSidebar,
+        closeSidebar,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 };
 // Custom Hook!
 export const useGlobalContext = () => {
